@@ -1,0 +1,15 @@
+title: report
+type: object
+description: A Popety.io report.
+properties:
+  id:
+    type: string
+  type:
+    type: string
+  status:
+    type: string
+  url:
+    type: string
+    description: URL to retrieve the generated report.
+required:
+  - id

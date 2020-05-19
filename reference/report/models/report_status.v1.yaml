@@ -1,0 +1,11 @@
+type: object
+title: report_status
+description: A report generation status.
+x-examples:
+  example-1: {}
+properties:
+  status:
+    type: string
+    enum:
+      - processing
+      - processed

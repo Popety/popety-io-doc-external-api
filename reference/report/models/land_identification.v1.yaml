@@ -1,0 +1,38 @@
+title: land_identification
+type: object
+description: |-
+  A plot of land informations use to identify the land.
+
+  In priority, Popety.io use the following information to retrieve the land:
+  1. Couple `land_nb` and `city_ofs_number`
+  2. GPS coordinates
+
+  If no land is find, a 404 response will be send.
+x-examples:
+  example-1:
+    land_nb: '351'
+    city_postal_code: '1802'
+    gps_coordinate:
+      lat: 46.470313
+      lon: 6.831629
+  example-2:
+    land_nb: '1234'
+    city_postal_code: '1806'
+  example-3:
+    gps_coordinate:
+      lat: 46.470313
+      lon: 6.831629
+properties:
+  land_nb:
+    type: string
+  city_ofs_number:
+    type: string
+  gps_coordinate:
+    type:
+      - string
+      - object
+    properties:
+      lat:
+        type: number
+      lon:
+        type: number

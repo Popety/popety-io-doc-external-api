@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Popety.io API
+  license: {}
+  contact:
+    name: support@popety.com
+  description: Third Party API open to Popety.io partners.
+servers:
+  - url: 'https://popetyio-api-prod.appspot.com/api/v1/svc'
+    description: ' Prod'
+  - url: 'https://popetyio-dev.appspot.com/api/v1/svc'
+    description: ' Dev'
+paths:
+  '/reports/{reportId}':
+    parameters:
+      - schema:
+          type: string
+        name: reportId
+        in: path
+        required: true
+        description: Id of a report.
+    get:
+      summary: Get Report information
+      operationId: get-reports-reportId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/report.v1.yaml
+        '404':
+          description: Report Not Found
+      description: Information about a specific report.
+      security:
+        - API Key: []
+      parameters: []
+      tags:
+        - Reports
+  '/reports/{reportType}':
+    post:
+      summary: Generate Report
+      operationId: post-reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/report.v1.yaml
+        '404':
+          description: Land not Found
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          required: true
+          description: application/json
+      security:
+        - API Key: []
+      description: Generate a new report.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                land:
+                  $ref: ./models/land_identification.v1.yaml
+                type:
+                  type: string
+                  enum:
+                    - land_analysis_pro
+                    - land_analysis_all_public
+                callback_url:
+                  type: string
+                  description: A callback URL called when the report is succesfully generated.
+              required:
+                - land
+                - type
+        description: ''
+      tags:
+        - Reports
+    parameters:
+      - schema:
+          type: string
+        name: reportType
+        in: path
+        required: true
+        description: A type of report requested.
+  '/reports/{reportId}/status':
+    parameters:
+      - schema:
+          type: string
+        name: reportId
+        in: path
+        required: true
+    get:
+      summary: Get Report Status
+      tags:
+        - Reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/report_status.v1.yaml
+        '404':
+          description: Report not Found
+      operationId: get-reports-reportId-status
+      description: Get status of a specific report.
+      security:
+        - API Key: []
+components:
+  schemas:
+    Report:
+      $ref: ./models/report.v1.yaml
+      x-tags:
+        - Reports
+      title: Report
+      description: A Popety.io report.
+  securitySchemes:
+    API Key:
+      name: x-api-key
+      type: apiKey
+      in: header
+      description: ''
+security:
+  - API Key: []
