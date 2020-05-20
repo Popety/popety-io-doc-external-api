@@ -1,4 +1,4 @@
-title: report
+title: Report
 type: object
 description: A Popety.io report.
 properties:

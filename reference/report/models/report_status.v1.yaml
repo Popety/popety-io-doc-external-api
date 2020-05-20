@@ -1,5 +1,5 @@
 type: object
-title: report_status
+title: Report Status
 description: A report generation status.
 x-examples:
   example-1: {}
